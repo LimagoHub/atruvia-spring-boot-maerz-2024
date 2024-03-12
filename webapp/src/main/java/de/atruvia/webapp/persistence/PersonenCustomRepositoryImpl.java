@@ -1,6 +1,7 @@
 package de.atruvia.webapp.persistence;
 
 
+import de.atruvia.webapp.persistence.entity.PersonEntity;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

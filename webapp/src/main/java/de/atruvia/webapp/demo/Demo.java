@@ -1,13 +1,12 @@
 package de.atruvia.webapp.demo;
 
-import de.atruvia.webapp.persistence.PersonEntity;
+import de.atruvia.webapp.persistence.entity.PersonEntity;
 import de.atruvia.webapp.persistence.PersonenRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -39,6 +38,6 @@ public class Demo {
         //repo.projektionBesser().forEach(System.out::println);
         var p = PersonEntity.builder().id(UUID.randomUUID()).vorname("John Boy").nachname("Walton").build();
 
-        repo.speichern(p);
+        //repo.speichern(p);
     }
 }

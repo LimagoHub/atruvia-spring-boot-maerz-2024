@@ -1,11 +1,13 @@
 package de.atruvia.webapp.persistence;
 
+import de.atruvia.webapp.persistence.entity.PersonEntity;
+import de.atruvia.webapp.persistence.entity.TinyPerson;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface PersonenRepository extends CrudRepository<PersonEntity, UUID>, PersonenCustomRepository {
+public interface PersonenRepository extends CrudRepository<PersonEntity, UUID>/*, PersonenCustomRepository*/ {
 
     Iterable<PersonEntity> findByVorname(String vorname);
     Iterable<PersonEntity> findByVornameOrNachname(String vorname, String nachname);

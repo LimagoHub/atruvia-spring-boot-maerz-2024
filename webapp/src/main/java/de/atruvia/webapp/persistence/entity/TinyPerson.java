@@ -1,4 +1,4 @@
-package de.atruvia.webapp.persistence;
+package de.atruvia.webapp.persistence.entity;
 
 import java.util.UUID;
 
