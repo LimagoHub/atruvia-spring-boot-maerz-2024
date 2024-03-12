@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface PersonenRepository extends CrudRepository<PersonEntity, UUID>/*, PersonenCustomRepository*/ {
+public interface PersonenRepository extends CrudRepository<PersonEntity, UUID>{
 
     Iterable<PersonEntity> findByVorname(String vorname);
     Iterable<PersonEntity> findByVornameOrNachname(String vorname, String nachname);
@@ -18,7 +18,7 @@ public interface PersonenRepository extends CrudRepository<PersonEntity, UUID>/*
     @Query("select p.id,  p.nachname from PersonEntity p")
     Iterable<Object[]> projektion();
 
-    @Query("select new de.atruvia.webapp.persistence.TinyPerson( p.id,  p.nachname) from PersonEntity p")
+    @Query("select new de.atruvia.webapp.persistence.entity.TinyPerson( p.id,  p.nachname) from PersonEntity p")
     Iterable<TinyPerson> projektionBesser();
 
 
