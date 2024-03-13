@@ -9,13 +9,18 @@ import de.atruvia.webapp.service.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(rollbackFor = {PersonenServiceException.class}, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class PersonenServiceImpl implements PersonenService {
 
     private final PersonenRepository repo;
@@ -25,17 +30,23 @@ public class PersonenServiceImpl implements PersonenService {
     @Qualifier("antipathen")
     private final List<String> antipathen;
 
+//    void bulkInsert(List<Person> personen) throws PersonenServiceException{
+//       for(var person: personen)
+//           speichern(person);
+//    }
+
     /*
-        Parameter null -> PSE
-        vorname null -> PSE
-        vorname zu kurz -> PSE
-        nachname null -> PSE
-        nachname zu kurz -> PSE
-        Attila -> PSE
-        runtimeException -> PSE
-        happy day -> person wird an repo übergeben
-     */
+            Parameter null -> PSE
+            vorname null -> PSE
+            vorname zu kurz -> PSE
+            nachname null -> PSE
+            nachname zu kurz -> PSE
+            Attila -> PSE
+            runtimeException -> PSE
+            happy day -> person wird an repo übergeben
+         */
     @Override
+    @Transactional(rollbackFor = {PersonenServiceException.class}, propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
     public void speichern(final Person person) throws PersonenServiceException {
         try {
             speichernImpl(person);
@@ -91,6 +102,8 @@ public class PersonenServiceImpl implements PersonenService {
             throw new PersonenServiceException("Upps", e);
         }
     }
+
+    @Transactional(rollbackFor = {PersonenServiceException.class} ,isolation = Isolation.READ_UNCOMMITTED)
 
     @Override
     public Optional<Person> findeAnhandId(final UUID id) throws PersonenServiceException {
