@@ -36,7 +36,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return  ResponseEntity.badRequest().body(body);
     }
 
-    @ExceptionHandler({PersonenServiceException.class})
+    @ExceptionHandler(PersonenServiceException.class)
     public ResponseEntity<Object> handlePersonenServiceException(PersonenServiceException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

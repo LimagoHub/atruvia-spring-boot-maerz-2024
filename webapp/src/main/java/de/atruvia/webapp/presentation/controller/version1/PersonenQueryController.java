@@ -51,4 +51,11 @@ public class PersonenQueryController {
         System.out.printf("Vorname = %s und nachname =%s%n", vorname, nachname);
         return ResponseEntity.ok(mapper.convert(service.findeAlle()));
     }
+
+    @PostMapping(path="/funktionen/toupper",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)  // Ersatzget (safe, idempotent)
+    public ResponseEntity<PersonDto> toUpper(@RequestBody PersonDto personDto) {
+        personDto.setVorname(personDto.getVorname().toUpperCase());
+        personDto.setNachname(personDto.getNachname().toUpperCase());
+        return ResponseEntity.ok(personDto);
+    }
 }
