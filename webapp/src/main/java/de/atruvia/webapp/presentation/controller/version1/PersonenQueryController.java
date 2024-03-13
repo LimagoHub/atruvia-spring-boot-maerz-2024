@@ -1,4 +1,4 @@
-package de.atruvia.webapp.presentation.controller;
+package de.atruvia.webapp.presentation.controller.version1;
 
 import de.atruvia.webapp.presentation.dto.PersonDto;
 import de.atruvia.webapp.presentation.mapper.PersonDtoMapper;
@@ -13,16 +13,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/personen")
+@RequestMapping("/v1/personen")
 @RequiredArgsConstructor
 public class PersonenQueryController {
 
@@ -47,7 +44,11 @@ public class PersonenQueryController {
     }
 
     @GetMapping(path="", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Iterable<PersonDto>> findAll() throws PersonenServiceException {
+    public ResponseEntity<Iterable<PersonDto>> findAll(
+            @RequestParam(required = false, defaultValue = "Otto") String vorname,
+            @RequestParam(required = false, defaultValue = "Mol")String nachname
+    ) throws PersonenServiceException {
+        System.out.printf("Vorname = %s und nachname =%s%n", vorname, nachname);
         return ResponseEntity.ok(mapper.convert(service.findeAlle()));
     }
 }

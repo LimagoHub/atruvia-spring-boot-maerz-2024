@@ -47,18 +47,20 @@ public class PersonenServiceImpl implements PersonenService {
          */
     @Override
     @Transactional(rollbackFor = {PersonenServiceException.class}, propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
-    public void speichern(final Person person) throws PersonenServiceException {
+    public boolean speichern(final Person person) throws PersonenServiceException {
         try {
-            speichernImpl(person);
+            return speichernImpl(person);
         } catch (RuntimeException e) {
             throw new PersonenServiceException("Upps",e);
         }
     }
 
-    private void speichernImpl(final Person person) throws PersonenServiceException {
-        checkPerson(person);
+    private boolean speichernImpl(final Person person) throws PersonenServiceException {
 
+        checkPerson(person);
+        if(repo.existsById(person.getId())) return true;
         repo.save(mapper.convert(person));
+        return false;
     }
 
     private void checkPerson(final Person person) throws PersonenServiceException {

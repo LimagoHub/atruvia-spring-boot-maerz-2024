@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface PersonenService {
 
-    void speichern(Person person) throws PersonenServiceException;
+    boolean speichern(Person person) throws PersonenServiceException;
     boolean aendern(Person person) throws PersonenServiceException;
 
     boolean loeschen(UUID id) throws PersonenServiceException;
