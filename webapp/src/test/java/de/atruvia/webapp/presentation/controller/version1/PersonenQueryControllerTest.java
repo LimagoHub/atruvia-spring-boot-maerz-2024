@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -104,6 +104,8 @@ class PersonenQueryControllerTest {
 
         var entity = restTemplate.exchange("/v1/personen", HttpMethod.GET, httpEntity,  new ParameterizedTypeReference<List<PersonDto>>() { });
         assertEquals(3, entity.getBody().size());
+
+        //verify(personenServiceMock, times(1)).findeAnhandId(UUID.fromString("86dac2d5-7edc-483a-abc6-239e5b93eb13"));
     }
 
 
