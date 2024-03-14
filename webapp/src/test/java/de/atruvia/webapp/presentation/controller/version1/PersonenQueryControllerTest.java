@@ -66,6 +66,7 @@ class PersonenQueryControllerTest {
         final Optional<Person> optionalPerson = Optional.of(Person.builder().id(UUID.fromString("86dac2d5-7edc-483a-abc6-239e5b93eb13")).vorname("John").nachname("Doe").build());
 
         when(personenServiceMock.findeAnhandId(any())).thenReturn(optionalPerson);
+        //when(personenServiceMock.speichern(any())).thenThrow(new PersonenServiceException("Antipath"));
 
         var entity = restTemplate.getForEntity("/v1/personen/b2e24e74-8686-43ea-baff-d9396b4202e0", PersonDto.class);
         var personDto =entity.getBody();
