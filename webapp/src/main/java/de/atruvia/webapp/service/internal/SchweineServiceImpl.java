@@ -6,17 +6,13 @@ import de.atruvia.webapp.service.SchweineServiceException;
 import de.atruvia.webapp.service.mapper.SchweinMapper;
 import de.atruvia.webapp.service.model.Schwein;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
+
 @RequiredArgsConstructor
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class SchweineServiceImpl implements SchweineService {
 
 

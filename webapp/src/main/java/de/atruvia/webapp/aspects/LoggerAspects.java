@@ -14,12 +14,19 @@ import org.springframework.stereotype.Component;
 public class LoggerAspects {
 
 
-    @Before("execution(public * de.atruvia.webapp.presentation.controller.version1.PersonenQueryController.*(..))")
+
+    @Before("PointCuts.controllerMethods()")
     public void logAdvice(JoinPoint joinPoint) {
-        log.warn("############################# "+ joinPoint.getSignature().getName() + " ######################");
+        log.warn("############################# Before: "+ joinPoint.getSignature().getName() + " ######################");
     }
 
-    @AfterReturning(value ="execution(public * de.atruvia.webapp.presentation.controller.version1.PersonenQueryController.*(..))", returning = "result")
+    @Before("PointCuts.dozentMethods()")
+    public void yepp(JoinPoint joinPoint) {
+        log.warn("############################# Before: Dozent sagt des gehoert so ######################");
+    }
+
+
+    @AfterReturning(value ="PointCuts.personenQueryControllerMethods()", returning = "result")
     public void afterReturning(JoinPoint joinPoint, Object result) {
         log.warn("############################# "+ joinPoint.getSignature().getName() + " ######################");
         System.out.println(result);
